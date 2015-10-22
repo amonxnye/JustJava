@@ -117,9 +117,12 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void increment(View view) {
-        NUMBER_OF_COFFEES += 1;
 
-        displayQuantity(NUMBER_OF_COFFEES);
+        if (NUMBER_OF_COFFEES != 100)
+            NUMBER_OF_COFFEES += 1;
+        else {
+            showToast("Sorry, we don't have that much coffee beans left", Toast.LENGTH_SHORT);
+        }
 
     }
 

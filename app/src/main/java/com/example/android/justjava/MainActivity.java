@@ -10,6 +10,7 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -54,25 +55,20 @@ public class MainActivity extends AppCompatActivity {
         checkBox1 = (CheckBox) findViewById(R.id.checkbox1);
         checkBox2 = (CheckBox) findViewById(R.id.checkbox2);
         checkBox3 = (CheckBox) findViewById(R.id.checkbox3);
-
-    /*    //reset stuff
-        summaryTextView.setText("");
-        summaryTextView.setVisibility(View.INVISIBLE);
-        summaryTitleTextView.setVisibility(View.INVISIBLE);
-*/
     }
 
     /**
      * This method is called when the order button is clicked.
      */
     public void submitOrder(View view) {
+        disableCheckbox(checkBox1);
+        disableCheckbox(checkBox2);
+        disableCheckbox(checkBox3);
         summaryTextView.setVisibility(View.VISIBLE);
         summaryTitleTextView.setVisibility(View.VISIBLE);
         CUST_NAME = name.getText().toString();
         summaryTextView.setText(orderSummary());
-
-        showToast("Thank you for your order! Preparing to email your order..", Toast.LENGTH_LONG);
-
+        showToast("Thank you for your order! Preparing to email your order..", Toast.LENGTH_SHORT);
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
@@ -86,21 +82,28 @@ public class MainActivity extends AppCompatActivity {
                 if (intent.resolveActivity(getPackageManager()) != null) {
                     startActivity(intent);
                 }
-
             }
         }, 5000);
-
         Log.v("MainActivity", "ORDER SUCCESSFUL");
-
         totalToppingPrice = 0;
+    }
 
+    private void disableCheckbox(final CheckBox checkBox) {
+        checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked)
+                    checkBox.setChecked(false);
+                else
+                    checkBox.setChecked(true);
+            }
+        });
     }
 
     /**
      * This method displays the given quantity value on the screen.
      */
     private void displayQuantity(int number) {
-
         quantityTextView.setText("" + number);
     }
 
@@ -136,36 +139,28 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void increment(View view) {
-
         if (NUMBER_OF_COFFEES != 100)
             NUMBER_OF_COFFEES += 1;
         else {
             showToast("Sorry, we don't have that much coffee beans left", Toast.LENGTH_SHORT);
         }
-
         displayQuantity(NUMBER_OF_COFFEES);
-
     }
 
     public void decrement(View view) {
-
         if (NUMBER_OF_COFFEES != 0)
             NUMBER_OF_COFFEES -= 1;
         else {
             showToast("Now you're going imaginary!!", Toast.LENGTH_SHORT);
         }
-
         displayQuantity(NUMBER_OF_COFFEES);
-
     }
 
     public void showToast(CharSequence charSequence, int duration) {
-
         this.context = getApplicationContext();
         this.charSequence = charSequence;
         this.duration = duration;
         toast = Toast.makeText(context, charSequence, duration);
         toast.show();
-
     }
 }

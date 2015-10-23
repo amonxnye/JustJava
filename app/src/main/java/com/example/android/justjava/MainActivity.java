@@ -1,7 +1,10 @@
 package com.example.android.justjava;
 
 import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -68,12 +71,29 @@ public class MainActivity extends AppCompatActivity {
         CUST_NAME = name.getText().toString();
         summaryTextView.setText(orderSummary());
 
-        //reset everything
-        name.setText("");
+        showToast("Thank you for your order! Preparing to email your order..", Toast.LENGTH_LONG);
+
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                Intent intent = new Intent(Intent.ACTION_SENDTO);
+                intent.setData(Uri.parse("mailto:")); //only email apps can handle this
+                String receiver[] = {"orders@justjava.com"};
+                intent.putExtra(Intent.EXTRA_EMAIL, receiver);
+                intent.putExtra(intent.EXTRA_SUBJECT, "JustJava order for " + CUST_NAME);
+                intent.putExtra(intent.EXTRA_TEXT, orderSummary());
+
+                if (intent.resolveActivity(getPackageManager()) != null) {
+                    startActivity(intent);
+                }
+
+            }
+        }, 5000);
+
+        Log.v("MainActivity", "ORDER SUCCESSFUL");
+
         totalToppingPrice = 0;
 
-        showToast("Thank you. See you again soon!", Toast.LENGTH_LONG);
-        Log.v("MainActivity", "ORDER SUCCESSFUL");
     }
 
     /**
@@ -101,7 +121,6 @@ public class MainActivity extends AppCompatActivity {
         if (checkBox.isChecked()) {
             orderSummary += "\n\t\t\t" + checkBox.getText().toString();
             totalToppingPrice += calculateTotalToppingPrice(checkBox);
-            checkBox.setChecked(false);
         }
     }
 
@@ -123,6 +142,8 @@ public class MainActivity extends AppCompatActivity {
         else {
             showToast("Sorry, we don't have that much coffee beans left", Toast.LENGTH_SHORT);
         }
+
+        displayQuantity(NUMBER_OF_COFFEES);
 
     }
 

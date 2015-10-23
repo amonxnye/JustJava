@@ -6,7 +6,7 @@
     <string name="order">Order</string>
     <string name="summary">Order Summary</string>
     <string name="top">Toppings</string>
-    <string name="top1">Whipped Cream ($1)</string>
-    <string name="top2">Chocolate ($2)</string>
-    <string name="top3">Maple Syrup ($3)</string>
+    <string name="top1">Whipped Cream</string>
+    <string name="top2">Chocolate</string>
+    <string name="top3">Maple Syrup</string>
 </resources>

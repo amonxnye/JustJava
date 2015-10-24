@@ -61,35 +61,40 @@ public class MainActivity extends AppCompatActivity {
      * This method is called when the order button is clicked.
      */
     public void submitOrder(View view) {
-        disableCheckbox(checkBox1);
-        disableCheckbox(checkBox2);
-        disableCheckbox(checkBox3);
-        summaryTextView.setVisibility(View.VISIBLE);
-        summaryTitleTextView.setVisibility(View.VISIBLE);
-        CUST_NAME = name.getText().toString();
-        summaryTextView.setText(orderSummary());
-        showToast(getString(R.string.prepare), Toast.LENGTH_SHORT);
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                Intent intent = new Intent(Intent.ACTION_SENDTO);
-                intent.setData(Uri.parse("mailto:")); //only email apps can handle this
-                String receiver[] = {getString(R.string.company_email)};
-                intent.putExtra(Intent.EXTRA_EMAIL, receiver);
-                intent.putExtra(intent.EXTRA_SUBJECT, getString(R.string.order_sub) + CUST_NAME);
-                intent.putExtra(intent.EXTRA_TEXT, orderSummary());
+        if (NUMBER_OF_COFFEES > 0) {
+            disableCheckbox(checkBox1);
+            disableCheckbox(checkBox2);
+            disableCheckbox(checkBox3);
+            summaryTextView.setVisibility(View.VISIBLE);
+            summaryTitleTextView.setVisibility(View.VISIBLE);
+            CUST_NAME = name.getText().toString();
+            summaryTextView.setText(orderSummary());
+            showToast(getString(R.string.prepare), Toast.LENGTH_SHORT);
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    Intent intent = new Intent(Intent.ACTION_SENDTO);
+                    intent.setData(Uri.parse("mailto:")); //only email apps can handle this
+                    String receiver[] = {getString(R.string.company_email)};
+                    intent.putExtra(Intent.EXTRA_EMAIL, receiver);
+                    intent.putExtra(intent.EXTRA_SUBJECT, getString(R.string.order_sub) + CUST_NAME);
+                    intent.putExtra(intent.EXTRA_TEXT, orderSummary());
 
-                if (intent.resolveActivity(getPackageManager()) != null) {
-                    startActivity(intent);
-                } else {
-                    Intent intent1 = new Intent(Intent.ACTION_VIEW);
-                    intent1.setData(Uri.parse("market://search?q=email"));
-                    startActivity(intent1);
+                    if (intent.resolveActivity(getPackageManager()) != null) {
+                        startActivity(intent);
+                    } else {
+                        Intent intent1 = new Intent(Intent.ACTION_VIEW);
+                        intent1.setData(Uri.parse("market://search?q=email"));
+                        startActivity(intent1);
+                    }
                 }
-            }
-        }, 5000);
-        Log.v("MainActivity", "ORDER SUCCESSFUL");
-        totalToppingPrice = 0;
+            }, 5000);
+            Log.v("MainActivity", "ORDER SUCCESSFUL");
+            totalToppingPrice = 0;
+        } else {
+            showToast(getString(R.string.order_none), Toast.LENGTH_SHORT);
+        }
+
     }
 
     private void disableCheckbox(final CheckBox checkBox) {

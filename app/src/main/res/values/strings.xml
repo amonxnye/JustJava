@@ -18,4 +18,5 @@
     <string name="summary_total">"Total: "</string>
     <string name="coffee_max">"Sorry, but everyone needs coffee :("</string>
     <string name="coffee_min">"Now you're going imaginary!!"</string>
+    <string name="order_none">"Please order something :("</string>
 </resources>

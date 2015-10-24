@@ -82,6 +82,11 @@ public class MainActivity extends AppCompatActivity {
                 if (intent.resolveActivity(getPackageManager()) != null) {
                     startActivity(intent);
                 }
+                else {
+                    Intent intent1 = new Intent(Intent.ACTION_VIEW);
+                    intent1.setData(Uri.parse("market://search?q=email"));
+                    startActivity(intent1);
+                }
             }
         }, 5000);
         Log.v("MainActivity", "ORDER SUCCESSFUL");

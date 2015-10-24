@@ -68,21 +68,20 @@ public class MainActivity extends AppCompatActivity {
         summaryTitleTextView.setVisibility(View.VISIBLE);
         CUST_NAME = name.getText().toString();
         summaryTextView.setText(orderSummary());
-        showToast("Thank you for your order! Preparing to email your order..", Toast.LENGTH_SHORT);
+        showToast(getString(R.string.prepare), Toast.LENGTH_SHORT);
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
                 Intent intent = new Intent(Intent.ACTION_SENDTO);
                 intent.setData(Uri.parse("mailto:")); //only email apps can handle this
-                String receiver[] = {"orders@justjava.com"};
+                String receiver[] = {getString(R.string.company_email)};
                 intent.putExtra(Intent.EXTRA_EMAIL, receiver);
-                intent.putExtra(intent.EXTRA_SUBJECT, "JustJava order for " + CUST_NAME);
+                intent.putExtra(intent.EXTRA_SUBJECT, getString(R.string.order_sub) + CUST_NAME);
                 intent.putExtra(intent.EXTRA_TEXT, orderSummary());
 
                 if (intent.resolveActivity(getPackageManager()) != null) {
                     startActivity(intent);
-                }
-                else {
+                } else {
                     Intent intent1 = new Intent(Intent.ACTION_VIEW);
                     intent1.setData(Uri.parse("market://search?q=email"));
                     startActivity(intent1);
@@ -133,13 +132,13 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private String orderSummary() {
-        orderSummary = "Name: " + CUST_NAME;
-        orderSummary += "\nQuantity: " + NUMBER_OF_COFFEES;
-        orderSummary += "\nToppings: ";
+        orderSummary = getString(R.string.summary_name) + CUST_NAME;
+        orderSummary += "\n" + getString(R.string.summary_quantity) + NUMBER_OF_COFFEES;
+        orderSummary += "\n" + getString(R.string.summary_toppings);
         addIfChecked(checkBox1);
         addIfChecked(checkBox2);
         addIfChecked(checkBox3);
-        orderSummary += "\nTotal: " + NumberFormat.getCurrencyInstance().format(calculatePrice(NUMBER_OF_COFFEES));
+        orderSummary += "\n" + getString(R.string.summary_total) + NumberFormat.getCurrencyInstance().format(calculatePrice(NUMBER_OF_COFFEES));
         return orderSummary;
     }
 
@@ -147,7 +146,7 @@ public class MainActivity extends AppCompatActivity {
         if (NUMBER_OF_COFFEES != 100)
             NUMBER_OF_COFFEES += 1;
         else {
-            showToast("Sorry, we don't have that much coffee beans left", Toast.LENGTH_SHORT);
+            showToast(getString(R.string.coffee_max), Toast.LENGTH_SHORT);
         }
         displayQuantity(NUMBER_OF_COFFEES);
     }
@@ -156,7 +155,7 @@ public class MainActivity extends AppCompatActivity {
         if (NUMBER_OF_COFFEES != 0)
             NUMBER_OF_COFFEES -= 1;
         else {
-            showToast("Now you're going imaginary!!", Toast.LENGTH_SHORT);
+            showToast(getString(R.string.coffee_min), Toast.LENGTH_SHORT);
         }
         displayQuantity(NUMBER_OF_COFFEES);
     }

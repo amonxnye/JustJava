@@ -3,6 +3,9 @@
     <string name="action_settings">Settings</string>
     <string name="quant">Quantity</string>
     <string name="name_hint">Your name here</string>
+    <string name="quantity_zero">0</string>
+    <string name="increment">+</string>
+    <string name="decrement">-</string>
     <string name="order">Order</string>
     <string name="summary">Order Summary</string>
     <string name="top">Toppings</string>

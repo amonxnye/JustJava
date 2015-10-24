@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="action_settings">Ajustes</string>
+    <string name="quant">Cantidad</string>
+    <string name="name_hint">Tu nombre aquí</string>
+    <string name="order">Orden</string>
+    <string name="summary">Resumen del pedido</string>
+    <string name="top">Ingredientes</string>
+    <string name="top1">Crema batida</string>
+    <string name="top2">Chocolate</string>
+    <string name="top3">Jarabe de arce</string>
+    <string name="prepare">"Gracias! Preparación para enviar por correo electrónico su pedido.."</string>
+    <string name="order_sub">"El orden JustJava para "</string>
+    <string name="summary_name">"Nombre: "</string>
+    <string name="summary_quantity">"Cantidad: "</string>
+    <string name="summary_toppings">"Ingredientes: "</string>
+    <string name="summary_total">"El total: "</string>
+    <string name="coffee_max">"Lo sentimos, pero todo el mundo necesita de café :("</string>
+    <string name="coffee_min">"Ahora vas imaginaria!!"</string>
+    <string name="order_none">"Por favor pedir algo :("</string>
+</resources>

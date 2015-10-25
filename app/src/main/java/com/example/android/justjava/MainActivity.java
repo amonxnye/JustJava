@@ -18,19 +18,22 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.text.NumberFormat;
+import java.util.Random;
 
 /**
  * This app displays an order form to order coffee.
  */
 public class MainActivity extends AppCompatActivity {
 
-    private int NUMBER_OF_COFFEES = 0;
+    private int NUMBER_OF_COFFEES;
     private Toolbar toolbar;
     private CharSequence charSequence;
     private int duration;
-    private int totalToppingPrice = 0;
+    private int totalToppingPrice;
+    private int temp;
     private Toast toast;
     private Context context;
+    private int ORDER_ID;
     private String CUST_NAME;
     private TextView summaryTextView;
     private TextView summaryTitleTextView;
@@ -47,6 +50,11 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         toolbar = (Toolbar) findViewById(R.id.tool_bar);
         setSupportActionBar(toolbar);
+
+        //initialize global variables
+        NUMBER_OF_COFFEES = 0;
+        totalToppingPrice = 0;
+        temp = new Random().nextInt();
 
         //find and attach views to references
         name = (EditText) findViewById(R.id.cust_name);
@@ -102,9 +110,9 @@ public class MainActivity extends AppCompatActivity {
                     intent.setData(Uri.parse("mailto:")); //only email apps can handle this
                     String receiver[] = {getString(R.string.company_email)};
                     intent.putExtra(Intent.EXTRA_EMAIL, receiver);
-                    intent.putExtra(intent.EXTRA_SUBJECT, getString(R.string.order_sub) + CUST_NAME);
                     intent.putExtra(intent.EXTRA_TEXT, orderSummary());
-
+                    intent.putExtra(intent.EXTRA_SUBJECT, getString(R.string.order_id) +
+                            ORDER_ID + returnNameIfNotNull(CUST_NAME));
                     if (intent.resolveActivity(getPackageManager()) != null) {
                         startActivity(intent);
                     } else {
@@ -113,13 +121,19 @@ public class MainActivity extends AppCompatActivity {
                         startActivity(intent1);
                     }
                 }
-            }, 5000);
+            }, 3000);
             Log.v("MainActivity", "ORDER SUCCESSFUL");
             totalToppingPrice = 0;
         } else {
             showToast(getString(R.string.order_none), Toast.LENGTH_SHORT);
         }
 
+    }
+
+    private String returnNameIfNotNull(String string) {
+        if (!(string.isEmpty()))
+            return ": " + getString(R.string.order_sub) + string;
+        return "";
     }
 
     private void disableCheckbox(final CheckBox checkBox) {
@@ -163,6 +177,10 @@ public class MainActivity extends AppCompatActivity {
 
     private String orderSummary() {
         orderSummary = getString(R.string.summary_name) + CUST_NAME;
+
+        ORDER_ID = temp > 0 ? temp : -temp;
+        orderSummary += "\n" + getString(R.string.order_id) + ORDER_ID;
+
         orderSummary += "\n" + getString(R.string.summary_quantity) + NUMBER_OF_COFFEES;
         orderSummary += "\n" + getString(R.string.summary_toppings);
         addIfChecked(checkBox1);

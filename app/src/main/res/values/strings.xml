@@ -16,6 +16,7 @@
     <string name="order_sub">"JustJava order for "</string>
     <string name="company_email">orders@justjava.com</string>
     <string name="summary_name">"Name: "</string>
+    <string name="order_id">"Order ID: "</string>
     <string name="summary_quantity">"Quantity: "</string>
     <string name="summary_toppings">"Toppings: "</string>
     <string name="summary_total">"Total: "</string>

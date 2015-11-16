@@ -12,8 +12,8 @@ public class OrderHelper extends SQLiteOpenHelper {
 
     // Database Related Constants
     private static final String DATABASE_NAME = "orderhistory";
-    public static final String TABLE_NAME = "order";
-    private static final int DATABASE_VERSION = 3;
+    public static final String TABLE_NAME = "orders_history";
+    private static final int DATABASE_VERSION = 6;
 
     // Database Columns
     public static final String ID = "_id";

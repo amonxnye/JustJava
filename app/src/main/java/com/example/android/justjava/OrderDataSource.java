@@ -16,7 +16,7 @@ public class OrderDataSource {
     private SQLiteDatabase database;
     private OrderHelper orderHelper;
     private String[] allColumns = {OrderHelper.ID, OrderHelper.ORDER_DATE, OrderHelper.CUST_NAME,
-            OrderHelper.ORDER_ID, OrderHelper.TOPPINGS, OrderHelper.TOTAL};
+            OrderHelper.ORDER_ID, OrderHelper.QUANTITY, OrderHelper.TOPPINGS, OrderHelper.TOTAL};
 
     public OrderDataSource(Context context) {
         orderHelper = new OrderHelper(context);
@@ -73,13 +73,13 @@ public class OrderDataSource {
 
     private Order cursorToOrder(Cursor cursor) {
         Order order = new Order();
-        order.setId(cursor.getInt(0));
-        order.setOrder_date(cursor.getString(1));
-        order.setCust_name(cursor.getString(2));
-        order.setOrder_id(cursor.getInt(3));
-        order.setQuantity(cursor.getInt(4));
-        order.setToppings(cursor.getString(5));
-        order.setTotal(cursor.getInt(6));
+        order.setId(cursor.getInt(cursor.getColumnIndexOrThrow(OrderHelper.ID)));
+        order.setOrder_date(cursor.getString(cursor.getColumnIndexOrThrow(OrderHelper.ORDER_DATE)));
+        order.setCust_name(cursor.getString(cursor.getColumnIndexOrThrow(OrderHelper.CUST_NAME)));
+        order.setOrder_id(cursor.getInt(cursor.getColumnIndexOrThrow(OrderHelper.ORDER_ID)));
+        order.setQuantity(cursor.getInt(cursor.getColumnIndexOrThrow(OrderHelper.QUANTITY)));
+        order.setToppings(cursor.getString(cursor.getColumnIndexOrThrow(OrderHelper.TOPPINGS)));
+        order.setTotal(cursor.getInt(cursor.getColumnIndexOrThrow(OrderHelper.TOTAL)));
         return order;
     }
 }

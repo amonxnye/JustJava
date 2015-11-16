@@ -18,6 +18,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.text.NumberFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Random;
 
 /**
@@ -43,6 +45,9 @@ public class MainActivity extends AppCompatActivity {
     private CheckBox checkBox2;
     private CheckBox checkBox3;
     private String orderSummary;
+    private String TOPPINGS;
+
+    private OrderDataSource dataSource;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,6 +55,11 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         toolbar = (Toolbar) findViewById(R.id.tool_bar);
         setSupportActionBar(toolbar);
+
+        dataSource = new OrderDataSource(this);
+        dataSource.open();
+
+        //List<Order> orderList = dataSource.getAllOrders();
 
         //initialize global variables
         NUMBER_OF_COFFEES = 0;
@@ -90,6 +100,18 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    @Override
+    protected void onResume() {
+        dataSource.open();
+        super.onResume();
+    }
+
+    @Override
+    protected void onPause() {
+        dataSource.close();
+        super.onPause();
+    }
+
     /**
      * This method is called when the order button is clicked.
      */
@@ -103,6 +125,12 @@ public class MainActivity extends AppCompatActivity {
             CUST_NAME = name.getText().toString();
             summaryTextView.setText(orderSummary());
             showToast(getString(R.string.prepare), Toast.LENGTH_SHORT);
+
+            // save the new order to the database
+            dataSource.createOrder(new SimpleDateFormat("yyyy-MM-dd").format(new Date()),
+                    CUST_NAME, ORDER_ID, NUMBER_OF_COFFEES, TOPPINGS,
+                    calculatePrice(NUMBER_OF_COFFEES));
+
             new Handler().postDelayed(new Runnable() {
                 @Override
                 public void run() {
@@ -127,7 +155,6 @@ public class MainActivity extends AppCompatActivity {
         } else {
             showToast(getString(R.string.order_none), Toast.LENGTH_SHORT);
         }
-
     }
 
     private String returnNameIfNotNull(String string) {
@@ -171,6 +198,7 @@ public class MainActivity extends AppCompatActivity {
     private void addIfChecked(CheckBox checkBox) {
         if (checkBox.isChecked()) {
             orderSummary += "\n\t\t\t" + checkBox.getText().toString();
+            TOPPINGS += checkBox.getText().toString() + "|";
             totalToppingPrice += calculateTotalToppingPrice(checkBox);
         }
     }

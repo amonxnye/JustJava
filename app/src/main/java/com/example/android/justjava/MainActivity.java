@@ -64,6 +64,7 @@ public class MainActivity extends AppCompatActivity {
         //initialize global variables
         NUMBER_OF_COFFEES = 0;
         totalToppingPrice = 0;
+        TOPPINGS = "";
         temp = new Random().nextInt();
 
         //find and attach views to references
@@ -198,7 +199,7 @@ public class MainActivity extends AppCompatActivity {
     private void addIfChecked(CheckBox checkBox) {
         if (checkBox.isChecked()) {
             orderSummary += "\n\t\t\t" + checkBox.getText().toString();
-            TOPPINGS += checkBox.getText().toString() + "|";
+            TOPPINGS += checkBox.getText().toString() + " ";
             totalToppingPrice += calculateTotalToppingPrice(checkBox);
         }
     }

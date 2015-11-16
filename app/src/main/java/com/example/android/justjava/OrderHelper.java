@@ -13,7 +13,7 @@ public class OrderHelper extends SQLiteOpenHelper {
     // Database Related Constants
     private static final String DATABASE_NAME = "orderhistory";
     public static final String TABLE_NAME = "order";
-    private static final int DATABASE_VERSION = 2;
+    private static final int DATABASE_VERSION = 3;
 
     // Database Columns
     public static final String ID = "_id";
@@ -25,10 +25,10 @@ public class OrderHelper extends SQLiteOpenHelper {
     public static final String TOTAL = "total";
 
     private static final String CREATE_TABLE = "create table " + TABLE_NAME + " (" + ID
-            + " integer primary key autoincrement, " + ORDER_DATE + " text not null, "
-            + CUST_NAME + " text not null, " + ORDER_ID + " integer not null, "
-            + QUANTITY + " integer not null, " + TOPPINGS + " text not null, "
-            + TOTAL + " integer not null);";
+            + " integer primary key autoincrement, " + ORDER_DATE + " text, "
+            + CUST_NAME + " text, " + ORDER_ID + " integer, "
+            + QUANTITY + " integer, " + TOPPINGS + " text, "
+            + TOTAL + " integer);";
     private static final String DROP_TABLE = "drop table if exists " + TABLE_NAME;
 
     public OrderHelper(Context context) {

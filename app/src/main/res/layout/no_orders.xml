@@ -1,11 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context="com.example.android.justjava.OrderHistoryActivity">
+    android:layout_height="match_parent">
 
     <android.support.design.widget.AppBarLayout
         android:id="@+id/app_bar"
@@ -22,16 +19,12 @@
 
     </android.support.design.widget.AppBarLayout>
 
-    <ScrollView
+    <TextView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/app_bar">
+        android:gravity="center"
+        android:includeFontPadding="false"
+        android:text="No previous orders."
+        android:textSize="36sp" />
 
-        <LinearLayout
-            android:id="@+id/card_layout"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
-            tools:context=".MainActivity" />
-    </ScrollView>
 </RelativeLayout>

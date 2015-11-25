@@ -24,4 +24,10 @@
     <string name="coffee_max">"Sorry, but everyone needs coffee :("</string>
     <string name="coffee_min">"Now you're going imaginary!!"</string>
     <string name="order_none">"Please order something :("</string>
+    <string name="order_id_label">"Order ID :"</string>
+    <string name="order_date_label">"Order date :"</string>
+    <string name="order_name_label">"Name :"</string>
+    <string name="order_quantity_label">"Quantity :"</string>
+    <string name="order_toppings_label">"Toppings :"</string>
+    <string name="order_total_label">"Total :"</string>
 </resources>

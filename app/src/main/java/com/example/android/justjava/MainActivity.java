@@ -20,6 +20,7 @@ import android.widget.Toast;
 import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 import java.util.Random;
 
 /**
@@ -58,8 +59,6 @@ public class MainActivity extends AppCompatActivity {
 
         dataSource = new OrderDataSource(this);
         dataSource.open();
-
-        //List<Order> orderList = dataSource.getAllOrders();
 
         //initialize global variables
         NUMBER_OF_COFFEES = 0;
@@ -200,7 +199,7 @@ public class MainActivity extends AppCompatActivity {
     private void addIfChecked(CheckBox checkBox) {
         if (checkBox.isChecked()) {
             orderSummary += "\n\t\t\t" + checkBox.getText().toString();
-            TOPPINGS += checkBox.getText().toString() + " ";
+            TOPPINGS += "\n" + checkBox.getText().toString();
             totalToppingPrice += calculateTotalToppingPrice(checkBox);
         }
     }
